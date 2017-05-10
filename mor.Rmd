@@ -1,0 +1,39 @@
+---
+title: "Median-odds-ratio"
+author: "Steve Simon"
+date: "May 10, 2017"
+output: html_document
+---
+
+This program explores the median odds ratio, a measure of the size of a random effect in a random effects logistic regression model.
+
+```{r preliminaries}
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+```
+
+This data set represents the number of cancer cells out of 400 that were killed by a radiation exposure. There were 27 experiments run, 3 per day across 9 different days.
+
+```{r read-data}
+f <- "http://www.statsci.org/data/general/radiatio.txt"
+radiation <- read.table(file=f, header=TRUE)
+
+print(radiation)
+```
+
+Let's plot the data. You'll notice something right away.
+
+```{r plot}
+radiation %>%
+  ggplot(aes(Occasion, Survived)) +
+  geom_point()
+```
+
+There is significant day-to-day variation. How would you model that variation?
+
+```{r glm}
+radiation %<>% mutate(p=Survived/400)
+fixed_model <- glm(p~1, data=radiation, family=binomial)
+summary(fixed_model)
+```
