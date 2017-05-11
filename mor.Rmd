@@ -18,22 +18,29 @@ This data set represents the number of cancer cells out of 400 that were killed 
 ```{r read-data}
 f <- "http://www.statsci.org/data/general/radiatio.txt"
 radiation <- read.table(file=f, header=TRUE)
-
+radiation %<>% mutate(p=Survived/400) %>% mutate(label="Raw data")
 print(radiation)
+summary(radiation$p)
 ```
 
-Let's plot the data. You'll notice something right away.
+Let's plot the data, ignoring the day.
 
-```{r plot}
+```{r plot, fig.width=7, fig.height=1}
 radiation %>%
-  ggplot(aes(Occasion, Survived)) +
-  geom_point()
+  ggplot(aes(label, p)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+It may not be obvious, but the data you are looking at is too variable to come from a binomial distribution.
+
+```{r compare-to-simulation, fig.width=7, fig.height=1.33}
+simulated_binomial <- 
 ```
 
 There is significant day-to-day variation. How would you model that variation?
 
 ```{r glm}
-radiation %<>% mutate(p=Survived/400)
 fixed_model <- glm(p~1, data=radiation, family=binomial)
 summary(fixed_model)
 ```
