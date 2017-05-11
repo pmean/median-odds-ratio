@@ -35,7 +35,17 @@ radiation %>%
 It may not be obvious, but the data you are looking at is too variable to come from a binomial distribution.
 
 ```{r compare-to-simulation, fig.width=7, fig.height=1.33}
-simulated_binomial <- 
+n <- dim(radiation)[1]
+simulated_binomial <- rbinom(n, 400, mean(radiation$p))/400
+tibble(p=simulated_binomial,
+  label="Simulated binomial")                   %>%
+  bind_rows(radiation)                          %>%
+  ggplot(aes(label, p)) +
+  geom_boxplot() +
+  coord_flip()
+
+
+
 ```
 
 There is significant day-to-day variation. How would you model that variation?
