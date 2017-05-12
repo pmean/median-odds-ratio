@@ -81,4 +81,11 @@ A new statistic has been proposed, the median odds ratio, for the random effects
 
 $MOR = exp(\sqrt{2\sigma_A}Z_.75)$
 
+You can find a general overview of this statistic at
+
+
+
+Juan Merlo, Basile Chaix, Henrik Ohlsson, Anders Beckman, Kristina Johnell, Per Hjerpe, L Råstam, and K Larsen. "A brief conceptual tutorial of multilevel analysis in social epidemiology: using measures of clustering in multilevel logistic regression to investigate contextual phenomena." J Epidemiol Community Health. 2006 Apr; 60(4): 290–297. Available at https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2566165/.
+doi:  10.1136/jech.2004.029454
+
 # end of file
